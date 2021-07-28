@@ -1,3 +1,5 @@
+import { faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
 import Image from 'next/image'
 
@@ -11,6 +13,7 @@ export default function Home() {
       </Head>
 
       <span>Hello World!</span>
+      {[...Array(1000).keys()].map((n, ind) => <FontAwesomeIcon key={ind} icon={faGlobeEurope} />)}
     </div>
   )
 }
