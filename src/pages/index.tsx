@@ -2,6 +2,7 @@ import { faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
 import Image from 'next/image'
+import ParliamentDiagram from 'src/modules/parliamentDiagram';
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       </Head>
 
       <span>Hello World!</span>
+      <ParliamentDiagram />
       {[...Array(1000).keys()].map((n, ind) => <FontAwesomeIcon key={ind} icon={faGlobeEurope} />)}
     </div>
   )

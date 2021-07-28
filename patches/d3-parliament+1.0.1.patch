@@ -1,0 +1,22 @@
+diff --git a/node_modules/d3-parliament/d3-parliament.js b/node_modules/d3-parliament/d3-parliament.js
+index 6021fc2..b2902b8 100644
+--- a/node_modules/d3-parliament/d3-parliament.js
++++ b/node_modules/d3-parliament/d3-parliament.js
+@@ -3,7 +3,7 @@
+  * © Copyright 2016 - Geoffrey Brossard (me@geoffreybrossard.fr)
+  */
+ 
+-d3.parliament = function() {
++module.exports = function(d3) {
+     /* params */
+     var width,
+         height,
+@@ -167,7 +167,7 @@ d3.parliament = function() {
+             /* circles catch mouse and touch events */
+             for (var evt in parliamentDispatch._) {
+                 (function(evt){
+-                    circlesEnter.on(evt, function(e) { parliamentDispatch.call(evt, this, e); });
++                    circlesEnter.on(evt, function(e, d) { parliamentDispatch.call(evt, this, {event: e, data: d}); });
+                 })(evt);
+             }
+ 

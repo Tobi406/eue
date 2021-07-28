@@ -23,6 +23,7 @@
   "include": [
     "next-env.d.ts",
     //"mdx.d.ts",
+    "d3-parliament-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
  ],
