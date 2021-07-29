@@ -16,7 +16,7 @@ index 6021fc2..b2902b8 100644
              for (var evt in parliamentDispatch._) {
                  (function(evt){
 -                    circlesEnter.on(evt, function(e) { parliamentDispatch.call(evt, this, e); });
-+                    circlesEnter.on(evt, function(e, d) { parliamentDispatch.call(evt, this, {event: e, data: d}); });
++                    circlesEnter.on(evt, function(e, d) { parliamentDispatch.call(evt, this, {event: e, data: d}); }, { passive: true });
                  })(evt);
              }
  
