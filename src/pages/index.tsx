@@ -15,7 +15,7 @@ export default function Home() {
 
       <span>Hello World!</span>
       <ParliamentDiagram />
-      {[...Array(1000).keys()].map((n, ind) => <FontAwesomeIcon key={ind} icon={faGlobeEurope} />)}
+      {[...Array(100).keys()].map((n, ind) => <p key={ind}>testest</p>)}
     </div>
   )
 }
