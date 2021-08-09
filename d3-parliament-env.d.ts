@@ -12,7 +12,22 @@ declare module 'd3-parliament' {
   }
   interface CallbackFunction {
     event: Event,
-    data: object,
+    data: {
+      polar: {
+        r: number,
+        teta: number,
+      },
+      cartesian: {
+        x: number,
+        y: number,
+      },
+      party: {
+        color: string,
+        id: string,
+        seats: number,
+      },
+      data: null,
+    },
   }
   type EventTypes = "click" | "dblclick" | "mousedown" | "mouseenter" | "mouseleave" | "mousemove" | "mouseout" | "mouseover" | "mouseup" | "touchcancel" | "touchend" | "touchmove" | "touchstart";
   interface ParliamentFunctions {
