@@ -20,9 +20,6 @@ const nationalCouncil: ParliamentChamber = {
       color: getParty('SPÖ').color,
       parties: [
         "GRÜNE",
-        {
-          SPÖ: 10,
-        },
       ],
     },
     {
@@ -31,26 +28,22 @@ const nationalCouncil: ParliamentChamber = {
       color: "#EDD1A4",
       parties: [
         "Independent",
-        "SPÖ"
       ],
     },
-    //{
-    //  name: "Klub der Grünen",
-    //  abbr: "Grüne-Klub",
-    //  color: getParty('GRÜNE').color,
-    //  parties: [
-    //    "GRÜNE",
-    //  ],
-    //},
+    {
+      name: "Klub der Grünen",
+      abbr: "Grüne-Klub",
+      color: getParty('GRÜNE').color,
+      parties: [
+        "GRÜNE",
+      ],
+    },
     {
       name: "Klub von NEOS",
       abbr: "NEOS-Klub",
       color: getParty('NEOS').color,
       parties: [
         "NEOS",
-        {
-          SPÖ: 5,
-        }
       ],
     },
     {
@@ -67,9 +60,6 @@ const nationalCouncil: ParliamentChamber = {
       color: getParty('ÖVP').color,
       parties: [
         "ÖVP",
-        {
-          SPÖ: 4
-        }
       ],
     },
   ],
