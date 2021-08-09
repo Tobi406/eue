@@ -42,3 +42,17 @@ export default function MemberState() {
     </>
   );
 }
+
+// added for testing, should get a rewrite when deploying not for testing
+export async function getStaticProps() {
+  return {
+    props: {},
+  }
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: ["/member-states/AT"],
+    fallback: false,
+  }
+}
