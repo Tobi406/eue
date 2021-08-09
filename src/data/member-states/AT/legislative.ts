@@ -19,7 +19,7 @@ const nationalCouncil: ParliamentChamber = {
       abbr: "SPÖ-Klub",
       color: getParty('SPÖ').color,
       parties: [
-        "GRÜNE",
+        "SPÖ",
       ],
     },
     {
