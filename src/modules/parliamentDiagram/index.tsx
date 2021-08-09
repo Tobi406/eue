@@ -43,7 +43,7 @@ const ParliamentDiagram: FC<{
 }> = ({ title, seats, groups }): ReactElement => {
   const [type, setType] = useState<"semicircle" | "sunburst">("semicircle");
   const [methodSemi, setMethodSemi] = useState<"parties" | "groups" | "epgroups" | "euparties">("parties");
-  const [methodSun, setMethodSun] = useState("");
+  const [methodSun, setMethodSun] = useState<"p-eg-ep" | "p-ep-eg">("p-eg-ep");
 
   const convertSeats = (seats: Seats, groups: Group[]) => {
     const modifiedSeats: Data[] = [];
@@ -183,6 +183,9 @@ const ParliamentDiagram: FC<{
         ));
       }
     }
+    if (type === "sunburst") {
+
+    }
     return modifiedSeats;
   }
 
@@ -212,6 +215,14 @@ const ParliamentDiagram: FC<{
               {value: "euparties", label: "Europarties"},
             ]}
             onChange={({ value }: {value: "parties" | "groups" | "epgroups" | "euparties"}) => setMethodSemi(value)}
+          />}
+          {type === "sunburst" && <StyledSelect
+            defaultValue={{value: "p-eg-ep", label: "P -> EG -> EP"}}
+            options={[
+              {value: "p-eg-ep", label: "P -> EG -> EP"},
+              {value: "p-ep-eg", label: "P -> EP -> EG"},
+            ]}
+            onChange={({ value }: {value: "p-eg-ep" | "p-ep-eg"}) => setMethodSun(value)}
           />}
         </Selects>
       </Top>

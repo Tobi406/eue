@@ -19,6 +19,7 @@
     "@reduxjs/toolkit": "^1.6.1",
     "d3": "^6.0.0",
     "d3-parliament": "^1.0.1",
+    "d3-sunburst": "^5.0.1",
     "next": "11.0.1",
     "polished": "^4.1.3",
     "react": "17.0.2",
