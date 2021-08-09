@@ -11,6 +11,7 @@ import Sidebar from 'src/modules/layout/Sidebar';
 
 import 'styles/globals.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
+import { UIDReset } from 'react-uid';
 
 fontAwesomeConfig.autoAddCss = false;
 
@@ -32,7 +33,9 @@ const Container = styled.div`
   flex-direction: column;
   width: fill-available;
 `;
-const Content = styled.main``;
+const Content = styled.main`
+  padding: 5px;
+`;
 
 export type theme = typeof theme;
 
@@ -43,21 +46,23 @@ export default function App({ Component, pageProps }: AppProps) {
     </Head>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <Overlay />
-        <Page>
-          <Sidebar />
-          <Container>
-            <Header
-              title="European Election 2024"
-            />
-            <Content>
-              <Component {...pageProps} />
-            </Content>
-            <Footer>
-              Made with &lt;3 <br /> This 
-            </Footer>
-          </Container>
-        </Page>
+        <UIDReset>
+          <Overlay />
+          <Page>
+            <Sidebar />
+            <Container>
+              <Header
+                title="European Election 2024"
+              />
+              <Content>
+                <Component {...pageProps} />
+              </Content>
+              <Footer>
+                Made with &lt;3 <br /> This 
+              </Footer>
+            </Container>
+          </Page>
+        </UIDReset>
       </ThemeProvider>
     </Provider>
   </>

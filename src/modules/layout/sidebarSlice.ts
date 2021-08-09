@@ -14,9 +14,9 @@ export const sidebarSlice = createSlice({
   reducers: {
     change: (state) => {
       state.sidebarOpen = !state.sidebarOpen;
-    }
-  }
-})
+    },
+  },
+});
 
 export const { change } = sidebarSlice.actions
 
