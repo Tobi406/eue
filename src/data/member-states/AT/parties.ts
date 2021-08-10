@@ -33,8 +33,8 @@ let partiesAT: Party[] = [
     name: "Österreichische Volkspartei",
     abbr: "ÖVP",
     color: "#62C3D0",
-    europeanParty: "ID",
-    europeanGroup: "ID",
+    europeanParty: "EPP",
+    europeanGroup: "EPP",
   },
 ];
 

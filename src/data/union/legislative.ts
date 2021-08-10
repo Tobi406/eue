@@ -11,14 +11,14 @@ const groups: EPGroup[] = [
     color: getEuropeanParty('PEL').color,
   },
   {
-    name: "Group of the Greens/European Free Alliance",
-    abbr: "G/EFA",
-    color: getEuropeanParty('EGP').color,
-  },
-  {
     name: "Group of the Progressive Alliance of Socialists and Democrats in the European Parliament",
     abbr: "S&D",
     color: getEuropeanParty('PES').color,
+  },
+  {
+    name: "Group of the Greens/European Free Alliance",
+    abbr: "G/EFA",
+    color: getEuropeanParty('EGP').color,
   },
   {
     name: "Renew Europe Group",
