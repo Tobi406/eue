@@ -187,7 +187,7 @@ const ParliamentDiagram: FC<{
     }
     if (type === "sunburst") {
       const modifiedSeats: DataSunburst = {
-        name: "root",
+        name: "All",
         color: "#c5c5c5",
         children: [],
       };
