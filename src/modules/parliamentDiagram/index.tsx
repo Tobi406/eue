@@ -198,6 +198,8 @@ const ParliamentDiagram: FC<{
         const europeanParty = getEuropeanParty(party?.europeanParty ?? 'NA');
         const europeanGroup = getEPGroup(party?.europeanGroup ?? 'NI');
 
+        const partyState = party?.state ?? 'EU';
+
         const partyName = party?.abbr ?? party.name;
         const europeanPartyName = europeanParty?.abbr ?? europeanParty.name;
         const europeanGroupName = europeanGroup?.abbr ?? europeanGroup.name;
@@ -229,6 +231,7 @@ const ParliamentDiagram: FC<{
            name: partyName,
            value: seatsCount,
            color: partyColor,
+           state: partyState,
          });
         }
         if (methodSun === "ep-eg-p") {
@@ -254,6 +257,7 @@ const ParliamentDiagram: FC<{
             name: partyName,
             value: seatsCount,
             color: partyColor,
+            state: partyState,
           });
         }
       });
@@ -303,7 +307,7 @@ const ParliamentDiagram: FC<{
         </Selects>
       </Top>
       {type === "semicircle" && <Semicircle data={convertSeats(seats, groups) as DataSemicircle[]} />}
-      {type === "sunburst" && <Sunburst data={convertSeats(seats, groups) as DataSunburst } />}
+      {type === "sunburst" && <Sunburst data={convertSeats(seats, groups) as DataSunburst } />} 
     </Container>
   )
 }
