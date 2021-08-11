@@ -24,7 +24,7 @@ const Span = styled.span`${CSS}`;
 
 const Text: FC<{
   type?: string
-} & CSSProperties> = (props): ReactElement => {
+} & CSSProperties & React.HTMLAttributes<HTMLElement>> = (props): ReactElement => {
   let Selected: String & StyledComponentBase<"h1" | "h2" | "h3" | "h4" | "p" | "span", any, {}, never>;
   switch (props.type) {
     case 'h1':

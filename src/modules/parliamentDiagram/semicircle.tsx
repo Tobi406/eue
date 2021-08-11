@@ -35,14 +35,14 @@ const ParliamentSVG = styled.svg`
   }
 `;
 
-export interface Data {
+export interface DataSemicircle {
   id: string,
   color: string,
   seats: number,
 };
 
 const Semicircle: FC<{
-  data: Data[],
+  data: DataSemicircle[],
 }> = ({ data }): ReactElement => {
   interface DataItem {
     id: string,
@@ -66,21 +66,25 @@ const Semicircle: FC<{
     }
   }
 
-  const draw = (data: Data[]) => {
+  const draw = (data: DataSemicircle[]) => {
     let parliament = d3Parliament(d3).width(600).innerRadiusCoef(0.4);
     parliament.enter.fromCenter(true).smallToBig(true);
     parliament.exit.toCenter(true).bigToSmall(true);
     parliament.on("click", function({ data}) { console.log(data); });
-    parliament.on("mouseenter", function ({ data }) {
+    parliament.on("mouseenter", function ({ data, event }) {
       changeFocus(data.party.id);
     });
     parliament.on("mouseleave", function ({ data }) {
       setFocus([]);
     });
+    
 
     const selected = d3.select(ref.current);
     const parliamentSelection = selected.datum(data).call(parliament)
       .select(".parliament");
+      parliamentSelection
+        .selectAll("*")
+          .attr("data-tip", "html");
       parliamentSelection
         .select("#countText")
           .remove();

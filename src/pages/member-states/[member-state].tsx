@@ -33,7 +33,7 @@ export default function MemberState() {
     <>
       <p>{JSON.stringify('chambers' in legislatives[memberState])}</p>
       <h1>{executive.name}</h1>
-      <ParliamentDiagram title="Not h1" seats={executive.seats} groups={[]} /> 
+      <ParliamentDiagram title="Not h1" seats={executive.seats} /> 
       <ParliamentDiagram title="H1" seats={(legislative as MultipleChambers).chambers[0].seats} groups={(legislative as MultipleChambers).chambers[0].groups} />
       {legislativeType === "unicameral"
         ? <>{/* Unicameral, oh yeah */}</>

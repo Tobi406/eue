@@ -4,16 +4,17 @@ import styled, { css } from "styled-components";
 import Select from "react-select";
 import { Group, GroupParties, Seats } from "src/data/models/Parliament";
 import { allParties, getParty, getPartyIndex } from "src/data/member-states/parties";
-import Semicircle, { Data } from "./semicircle";
+import Semicircle, { DataSemicircle } from "./semicircle";
 import { getEuropeanParty, getEuropeanPartyIndex } from "src/data/union/parties";
 import { EPGroup, epGroups, getEPGroup, getEPGroupIndex } from "src/data/union/legislative";
-import { group, path } from "d3";
+import { every, group, path } from "d3";
 import Party from "src/data/models/Party";
 import EuropeanParty from "src/data/models/EuropeanParty";
 import { sendStatusCode } from "next/dist/next-server/server/api-utils";
 import Nameable from "src/data/models/util/Nameable";
 import { valueContainerCSS } from "react-select/src/components/containers";
 import { loadGetInitialProps } from "next/dist/next-server/lib/utils";
+import Sunburst, { DataChildren, DataSunburst } from "./sunburst";
 
 const Container = styled.div``;
 const Top = styled.div`
@@ -39,23 +40,23 @@ const StyledSelect = styled(Select)<{
 const ParliamentDiagram: FC<{
   title: string,
   seats: Seats,
-  groups: Group[],
-}> = ({ title, seats, groups }): ReactElement => {
+  groups?: Group[],
+}> = ({ title, seats, groups = [] }): ReactElement => {
   const [type, setType] = useState<"semicircle" | "sunburst">("semicircle");
   const [methodSemi, setMethodSemi] = useState<"parties" | "groups" | "epgroups" | "euparties">("parties");
-  const [methodSun, setMethodSun] = useState<"p-eg-ep" | "p-ep-eg">("p-eg-ep");
+  const [methodSun, setMethodSun] = useState< "eg-ep-p" | "ep-eg-p">("eg-ep-p");
 
-  const convertSeats = (seats: Seats, groups: Group[]) => {
-    const modifiedSeats: Data[] = [];
+  const convertSeats = (seats: Seats, groups: Group[]): unknown => {
     interface Colorable {
       color?: string,
     }
     if (type === "semicircle") {
+      const modifiedSeats: DataSemicircle[] = [];
       type SortedSeatsFunction = <T extends Nameable & Colorable>(
         getParticipating: (partyId: string, index: number) => {[x: string]: number},
         getT: (input: string) => T,
         seatAccessor: {[k: string]: number}
-      ) => Data[];
+      ) => DataSemicircle[];
       const getSortedSeats: SortedSeatsFunction = <T extends Nameable & Colorable>(
         getParticipating: (partyId: string, index: number) => {[x: string]: number},
         getT: (input: string) => T,
@@ -67,7 +68,7 @@ const ParliamentDiagram: FC<{
             .reduce((a, b) => ({...a, ...b}))
         )
           .sort(([keyA, valueA], [keyB, valueB]) => valueA - valueB))
-        const getObj = (input: T, seats: number): Data => ({
+        const getObj = (input: T, seats: number): DataSemicircle => ({
           id: input?.abbr ?? input.name ?? 'Unknown',
           color: input?.color ?? '#c5c5c5',
           seats: seats,
@@ -182,12 +183,84 @@ const ParliamentDiagram: FC<{
           )
         ));
       }
+      return modifiedSeats;
     }
     if (type === "sunburst") {
+      const modifiedSeats: DataSunburst = {
+        name: "root",
+        color: "#c5c5c5",
+        children: [],
+      };
+      const hasName = (name: string, obj: {name: string}[]) => !obj.every(obj => obj.name !== name);
+      const findName = (name: string, obj: {name: string}[]) => obj.find(obj => obj.name === name)!;
+      Object.entries(seats).forEach(([partyId, seatsCount]) => {
+        const party = getParty(partyId);
+        const europeanParty = getEuropeanParty(party?.europeanParty ?? 'NA');
+        const europeanGroup = getEPGroup(party?.europeanGroup ?? 'NI');
 
+        const partyName = party?.abbr ?? party.name;
+        const europeanPartyName = europeanParty?.abbr ?? europeanParty.name;
+        const europeanGroupName = europeanGroup?.abbr ?? europeanGroup.name;
+
+        const partyColor = party?.color ?? '#c5c5c5';
+        const europeanPartyColor = europeanParty?.color ?? '#c5c5c5';
+        const europeanGroupColor = europeanGroup?.color ?? '#c5c5c5';
+
+        if (methodSun === "eg-ep-p") {
+          if (!hasName(europeanGroupName, modifiedSeats.children)) {
+            modifiedSeats.children.push({
+             name: europeanGroupName,
+             color: europeanGroupColor,
+             children: [],
+           });
+         }
+         const europeanGroupChild = findName(europeanGroupName, modifiedSeats.children) as DataChildren;
+
+         if (!hasName(europeanPartyName, europeanGroupChild.children)) {
+           europeanGroupChild.children.push({
+             name: europeanPartyName,
+             color: europeanPartyColor,
+             children: [],
+           });
+         }
+         const europeanPartyChild = findName(europeanPartyName, europeanGroupChild.children) as DataChildren;
+
+         europeanPartyChild.children.push({
+           name: partyName,
+           value: seatsCount,
+           color: partyColor,
+         });
+        }
+        if (methodSun === "ep-eg-p") {
+          if (!hasName(europeanPartyName, modifiedSeats.children)) {
+            modifiedSeats.children.push({
+              name: europeanPartyName,
+              color: europeanPartyColor,
+              children: [],
+            });
+          }
+          const europeanPartyChild = findName(europeanPartyName, modifiedSeats.children) as DataChildren;
+
+          if (!hasName(europeanGroupName, europeanPartyChild.children)) {
+             europeanPartyChild.children.push({
+              name: europeanGroupName,
+              color: europeanGroupColor,
+              children: [],
+            });
+          }
+          const europeanGroupChild = findName(europeanGroupName, europeanPartyChild.children) as DataChildren;
+
+          europeanGroupChild.children.push({
+            name: partyName,
+            value: seatsCount,
+            color: partyColor,
+          });
+        }
+      });
+      return modifiedSeats;
     }
-    return modifiedSeats;
   }
+
 
   return (
     <Container>
@@ -198,7 +271,6 @@ const ParliamentDiagram: FC<{
         <Selects>
           <StyledSelect
             margin="0 10px 0 0"
-            isDisabled={true}
             defaultValue={{value: "semicircle", label: "Semicircle"}}
             options={[
               {value: "semicircle", label: "Semicircle"},
@@ -208,7 +280,11 @@ const ParliamentDiagram: FC<{
           />
           {type === "semicircle" && <StyledSelect
             defaultValue={{value: "parties", label: "Parties"}}
-            options={[
+            options={groups.length === 0 ? [
+              {value: "parties", label: "Parties"},
+              {value: "epgroups", label: "EP-Groups"},
+              {value: "euparties", label: "Europarties"},
+            ] : [
               {value: "parties", label: "Parties"},
               {value: "groups", label: "Groups"},
               {value: "epgroups", label: "EP-Groups"},
@@ -217,16 +293,17 @@ const ParliamentDiagram: FC<{
             onChange={({ value }: {value: "parties" | "groups" | "epgroups" | "euparties"}) => setMethodSemi(value)}
           />}
           {type === "sunburst" && <StyledSelect
-            defaultValue={{value: "p-eg-ep", label: "P -> EG -> EP"}}
+            defaultValue={{value: "eg-ep-p", label: "EG -> EP -> P"}}
             options={[
-              {value: "p-eg-ep", label: "P -> EG -> EP"},
-              {value: "p-ep-eg", label: "P -> EP -> EG"},
+              {value: "eg-ep-p", label: "EG -> EP -> P"},
+              {value: "ep-eg-p", label: "EP -> EG -> P"},
             ]}
-            onChange={({ value }: {value: "p-eg-ep" | "p-ep-eg"}) => setMethodSun(value)}
+            onChange={({ value }: {value: "eg-ep-p" | "ep-eg-p"}) => setMethodSun(value)}
           />}
         </Selects>
       </Top>
-      <Semicircle data={convertSeats(seats, groups)} />
+      {type === "semicircle" && <Semicircle data={convertSeats(seats, groups) as DataSemicircle[]} />}
+      {type === "sunburst" && <Sunburst data={convertSeats(seats, groups) as DataSunburst } />}
     </Container>
   )
 }
