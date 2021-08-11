@@ -85,11 +85,11 @@ const federalCouncil: ParliamentChamber = {
       ],
     },
     {
-      name: "Bundesratsfraktion der ÖVP",
-      abbr: "ÖVP",
-      color: getParty('ÖVP').color,
+      name: "ohne Fraktionszugehörigkeit",
+      abbr: "OF",
+      color: "#EDD1A4",
       parties: [
-        "ÖVP",
+        "NEOS",
       ],
     },
     {
@@ -101,19 +101,19 @@ const federalCouncil: ParliamentChamber = {
       ],
     },
     {
+      name: "Bundesratsfraktion der ÖVP",
+      abbr: "ÖVP",
+      color: getParty('ÖVP').color,
+      parties: [
+        "ÖVP",
+      ],
+    },
+    {
       name: "Freiheitliche Bundesratsfraktion",
       abbr: "FPÖ",
       color: getParty('FPÖ').color,
       parties: [
         "FPÖ",
-      ],
-    },
-    {
-      name: "ohne Fraktionszugehörigkeit",
-      abbr: "OF",
-      color: "#EDD1A4",
-      parties: [
-        "NEOS",
       ],
     },
   ],
