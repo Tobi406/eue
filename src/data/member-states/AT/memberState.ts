@@ -1,13 +1,17 @@
 import TerritorialAuthority from "src/data/models/TerritorialAuthority";
 import bundesregierung from "./executive";
 import parliament from "./legislative";
+import taW from "./subdivisions/W/territorialAuthority";
 
-const territorialAuthorityAT: TerritorialAuthority = {
+const memberStateAT: TerritorialAuthority = {
   name: "Österreich, Austria",
   abbr: "AT",
   officialName: "Republic of Austria, Republik Österreich",
   executive: bundesregierung,
-  legislatives: parliament,
+  legislative: parliament,
+  subdivisions: {
+    W: taW,
+  },
 }
 
-export default territorialAuthorityAT;
+export default memberStateAT;

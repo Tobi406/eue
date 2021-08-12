@@ -5,7 +5,7 @@ import Nameable from "./util/Nameable";
 interface TerritorialAuthority extends Nameable {
   officialName: string,
   executive: Executive,
-  legislatives: Parliament,
+  legislative: Parliament,
   subdivisions?: TerritorialAuthorities,
 }
 

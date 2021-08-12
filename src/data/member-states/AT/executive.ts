@@ -1,4 +1,3 @@
-import Body from "src/data/models/Body";
 import Executive from "src/data/models/Executive";
 
 const bundesregierung: Executive = {
@@ -9,7 +8,6 @@ const bundesregierung: Executive = {
     GRÜNE: 4,
     Independent: 3,
   },
-  state: "AT",
   coalition: [
     "ÖVP",
     "GRÜNE",

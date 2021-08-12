@@ -3,20 +3,18 @@ import Text from "src/common/Text";
 import styled, { css } from "styled-components";
 import Select from "react-select";
 import { Group, GroupParties, Seats } from "src/data/models/Parliament";
-import { allParties, getParty, getPartyIndex } from "src/data/member-states/parties";
+import { getParty, getPartyIndex } from "src/data/member-states/parties";
 import Semicircle, { DataSemicircle } from "./semicircle";
 import { getEuropeanParty, getEuropeanPartyIndex } from "src/data/union/parties";
-import { EPGroup, epGroups, getEPGroup, getEPGroupIndex } from "src/data/union/legislative";
-import { every, group, path } from "d3";
+import { EPGroup, getEPGroup, getEPGroupIndex } from "src/data/union/legislative";
 import Party from "src/data/models/Party";
 import EuropeanParty from "src/data/models/EuropeanParty";
-import { sendStatusCode } from "next/dist/next-server/server/api-utils";
 import Nameable from "src/data/models/util/Nameable";
-import { valueContainerCSS } from "react-select/src/components/containers";
-import { loadGetInitialProps } from "next/dist/next-server/lib/utils";
 import Sunburst, { DataChildren, DataSunburst } from "./sunburst";
 
-const Container = styled.div``;
+const Container = styled.div`
+  max-width: 500px;
+`;
 const Top = styled.div`
   text-align: center;
   display: flex;
@@ -270,7 +268,7 @@ const ParliamentDiagram: FC<{
     <Container>
       <Top>
         <Text margin="0 0 0 auto" type="h3">
-          {title}
+          {title}&nbsp;
         </Text>
         <Selects>
           <StyledSelect

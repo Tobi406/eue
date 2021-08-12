@@ -1,6 +1,5 @@
-import Parliament, { MultipleChambers, ParliamentChamber } from "src/data/models/Parliament";
+import { MultipleChambers, ParliamentChamber } from "src/data/models/Parliament";
 import { getParty } from "../parties";
-import parties from "./parties";
 
 const nationalCouncil: ParliamentChamber = {
   name: "Nationalrat",
