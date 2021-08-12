@@ -1,10 +1,8 @@
 import { useRouter } from "next/router";
 import React from "react";
 import Text from "src/common/Text";
-import executives from "src/data/member-states/executives";
-import legislatives from "src/data/member-states/legislatives";
-import memberStates from "src/data/member-states/memberStates";
-import  { MultipleChambers, ParliamentChamber, Seats } from "src/data/models/Parliament";
+import memberStates from "src/data/member-states/territorialAuthorities";
+import  { MultipleChambers, ParliamentChamber } from "src/data/models/Parliament";
 import ParliamentDiagram from "src/modules/parliamentDiagram";
 
 const renderChamber = (chamber: ParliamentChamber) => {
@@ -24,18 +22,17 @@ export default function MemberState() {
 
   if (memberState === undefined) return (<></>);
 
-  const msInfo = memberStates[memberState];
-  const executive = executives[memberState];
-  const legislative = legislatives[memberState];
+  const ta = memberStates[memberState];
+  const executive = ta.executive;
+  const legislative = ta.legislatives;
   const legislativeType: "bicameral" | "unicameral" = 'chambers' in legislative ? "bicameral" : "unicameral";
 
   return (
     <>
-      <p>{JSON.stringify('chambers' in legislatives[memberState])}</p>
       <Text
         type="h2"
       >
-        {`${msInfo.name} (${msInfo.officialName}${typeof msInfo?.abbr !== undefined ? `, ${msInfo.abbr}` : ''})`}
+        {`${ta.name} (${ta.officialName}${typeof ta?.abbr !== undefined ? `, ${ta.abbr}` : ''})`}
       </Text>
       <ParliamentDiagram title="Executive" seats={executive.seats} /> 
       {legislativeType === "unicameral"
