@@ -61,7 +61,9 @@ export default function App({ Component, pageProps }: AppProps) {
                 <Component {...pageProps} />
               </Content>
               <Footer>
-                Made with &lt;3 <br /> This 
+                Made with &lt;3 <br />
+                This website is not connected with or benefits from the support, sponsorship or approval of any of
+                the institutions, bodies, offices, agencies and organs of the European Union or the Council of Europe.
               </Footer>
             </Container>
           </Page>
