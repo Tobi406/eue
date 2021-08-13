@@ -41,9 +41,20 @@ export async function getStaticProps() {
   }
 }
 
+const getPaths = () => {
+  const paths: string[] = [];
+  Object.entries(memberStates)
+    .forEach(([memberState, { subdivisions }]) => {
+      if (typeof subdivisions === "undefined") return;
+      Object.keys(subdivisions)
+        .forEach(subdivision => paths.push(`/member-states/${memberState}/subdivisions/${subdivision}`))
+    });
+  return paths;
+} 
+
 export async function getStaticPaths() {
   return {
-    paths: ["/member-states/AT/subdivisions/W"],
+    paths: getPaths(),
     fallback: false,
   }
 }

@@ -3,8 +3,6 @@ import React from "react";;
 import memberStates from "src/data/member-states/memberStates";
 import TerritorialAuthorityDisplay from "src/modules/territorialAuthorityDisplay";
 
-
-
 export default function MemberState() {
   const router = useRouter();
   let { 'member-state': memberState } = router.query;
