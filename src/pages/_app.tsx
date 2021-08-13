@@ -55,7 +55,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <Sidebar />
             <Container>
               <Header
-                title="European Election 2024"
+                title="EUE"
               />
               <Content>
                 <Component {...pageProps} />
