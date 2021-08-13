@@ -1,12 +1,12 @@
 import { FC, ReactElement, useEffect, useRef, useState } from "react";
 import * as d3 from 'd3';
 import d3Parliament from 'd3-parliament';
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import Icon from "src/common/Icon";
 import Text from "src/common/Text";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { grayscale } from "polished";
-import { UIDConsumer, UIDReset } from "react-uid";
+import { UIDConsumer } from "react-uid";
 
 const Container = styled.div`
   width: 300px;

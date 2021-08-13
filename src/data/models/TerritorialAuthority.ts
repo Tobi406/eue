@@ -1,5 +1,5 @@
 import Executive from "./Executive";
-import Parliament from "./Parliament";
+import Parliament, { Seats } from "./Parliament";
 import Nameable from "./util/Nameable";
 
 interface TerritorialAuthority extends Nameable {
@@ -7,6 +7,15 @@ interface TerritorialAuthority extends Nameable {
   executive: Executive,
   legislative: Parliament,
   subdivisions?: TerritorialAuthorities,
+}
+
+export interface MemberState extends TerritorialAuthority {
+  headOfState: string,
+  epDelegation: Seats,
+}
+
+export interface MemberStates {
+  [key: string]: MemberState,
 }
 
 export interface TerritorialAuthorities {

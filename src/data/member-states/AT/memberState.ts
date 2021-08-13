@@ -1,10 +1,11 @@
-import TerritorialAuthority from "src/data/models/TerritorialAuthority";
+import { MemberState } from "src/data/models/TerritorialAuthority";
+import seatsAT from "./ep";
 import bundesregierung from "./executive";
 import parliament from "./legislative";
 import taNÖ from "./subdivisions/NÖ/territorialAuthority";
 import taW from "./subdivisions/W/territorialAuthority";
 
-const memberStateAT: TerritorialAuthority = {
+const memberStateAT: MemberState = {
   name: "Österreich, Austria",
   abbr: "AT",
   officialName: "Republic of Austria, Republik Österreich",
@@ -14,6 +15,8 @@ const memberStateAT: TerritorialAuthority = {
     W: taW,
     NÖ: taNÖ,
   },
+  headOfState: "GRÜNE",
+  epDelegation: seatsAT,
 }
 
 export default memberStateAT;

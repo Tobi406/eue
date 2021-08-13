@@ -12,6 +12,7 @@ const bundesregierung: Executive = {
     "ÖVP",
     "GRÜNE",
   ],
+  head: "ÖVP",
 };
 
 export default bundesregierung;

@@ -14,6 +14,7 @@ const executiveW: Executive = {
     ÖVP: 2,
     FPÖ: 1,
   },
+  head: "SPÖ",
 };
 
 export default executiveW;

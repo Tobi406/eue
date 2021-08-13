@@ -10,6 +10,7 @@ const executiveNÖ: Executive = {
     SPÖ: 2,
     FPÖ: 1,
   },
+  head: "ÖVP",
 };
 
 export default executiveNÖ;

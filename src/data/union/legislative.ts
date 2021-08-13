@@ -1,4 +1,4 @@
-import seatsAT from "../member-states/AT/ep";
+import memberStates from "../member-states/memberStates";
 import { ParliamentChamber, Group, Seats } from "../models/Parliament";
 import { getEuropeanParty } from "./parties";
 
@@ -47,9 +47,9 @@ const groups: EPGroup[] = [
   },
 ];
 
-const seats: Seats = {
-  ...seatsAT,
-};
+const seats: Seats = Object.values(memberStates)
+  .map(ms => ms.epDelegation)
+  .reduce((a, b) => ({...a, ...b}));
 
 const parliament: Omit<ParliamentChamber, 'groups'> & {
   groups: EPGroup[],

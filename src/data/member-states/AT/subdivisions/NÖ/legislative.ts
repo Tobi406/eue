@@ -24,7 +24,7 @@ const legislativeNÖ: Parliament = {
       abbr: "FPÖ",
       color: getParty('FPÖ').color,
       parties: [
-        "FPÖ,"
+        "FPÖ",
       ],
     },
     {
