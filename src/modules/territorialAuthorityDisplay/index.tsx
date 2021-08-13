@@ -4,7 +4,7 @@ import { MultipleChambers, ParliamentChamber } from "src/data/models/Parliament"
 import TerritorialAuthority from "src/data/models/TerritorialAuthority";
 import styled from "styled-components";
 import ParliamentDiagram from "../parliamentDiagram";
-import Link from "next/link";
+import Link from "src/common/Link";
 import { useRouter } from "next/router";
 
 const optStr = (str: string | undefined, mod: (str: string) => string) => {
