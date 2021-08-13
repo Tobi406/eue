@@ -1,4 +1,4 @@
-import { FC, ReactElement } from "react";
+import { FC, Fragment, ReactElement } from "react";
 import { useSelector } from "react-redux";
 import { RemoveScrollBar } from "react-remove-scroll-bar";
 import Link from "src/common/Link";
@@ -53,7 +53,7 @@ const Sidebar: FC<{}> = (): ReactElement => {
       sidebarOpen={useSelector((state: RootState) => state.sidebar.sidebarOpen)}
     >
       <ul>
-        {Object.entries(memberStates).map(([ms, msInfo]) => <>
+        {Object.entries(memberStates).map(([ms, msInfo], index) => <Fragment key={index}>
           <li>
             <Link
               href={`/member-states/${ms}`}
@@ -62,7 +62,7 @@ const Sidebar: FC<{}> = (): ReactElement => {
             </Link>
           </li>
           {typeof msInfo?.subdivisions !== "undefined" && <ul>
-            {Object.entries(msInfo.subdivisions).map(([sd, sdInfo]) => <>
+            {Object.entries(msInfo.subdivisions).map(([sd, sdInfo], index) => <Fragment key={index}>
               <li>
                 <Link
                   href={`/member-states/${ms}/subdivisions/${sd}`}
@@ -70,9 +70,9 @@ const Sidebar: FC<{}> = (): ReactElement => {
                   {sdInfo.name}
                 </Link>
               </li>
-            </>)}
+            </Fragment>)}
           </ul>}
-        </>)}
+        </Fragment>)}
       </ul>
     </Container>
     {sidebarOpen && <RemoveScrollBar />}
