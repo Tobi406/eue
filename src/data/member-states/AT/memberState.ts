@@ -1,6 +1,7 @@
 import TerritorialAuthority from "src/data/models/TerritorialAuthority";
 import bundesregierung from "./executive";
 import parliament from "./legislative";
+import taNÖ from "./subdivisions/NÖ/territorialAuthority";
 import taW from "./subdivisions/W/territorialAuthority";
 
 const memberStateAT: TerritorialAuthority = {
@@ -11,6 +12,7 @@ const memberStateAT: TerritorialAuthority = {
   legislative: parliament,
   subdivisions: {
     W: taW,
+    NÖ: taNÖ,
   },
 }
 
