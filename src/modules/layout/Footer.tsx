@@ -8,7 +8,7 @@ const Container = styled.footer`
   border-top: 2px solid ${({ theme }) => theme.colors.primary};
   
   @media screen and (min-width: 960px) {
-    position: fixed;
+    position: sticky;
   }
 `;
 
