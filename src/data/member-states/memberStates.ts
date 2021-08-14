@@ -1,5 +1,5 @@
 import { Group, MultipleChambers, ParliamentChamber } from "../models/Parliament";
-import TerritorialAuthority, { MemberStates } from "../models/TerritorialAuthority";
+import TerritorialAuthority, { MemberState, MemberStates } from "../models/TerritorialAuthority";
 import memberStateAT from "./AT/memberState";
 import { getParty } from "./parties";
 
@@ -34,8 +34,13 @@ const addDefaultColors = (ta: TerritorialAuthority) => {
   return ta;
 }
 
-const memberStates: MemberStates = {
+let memberStates: MemberStates = {
   AT: memberStateAT,
 };
+
+memberStates = Object.fromEntries(
+  Object.entries(memberStates)
+  .map(([key, value]) => ([key, addDefaultColors(value) as MemberState]))
+);
 
 export default memberStates;
