@@ -1,5 +1,4 @@
 import { MultipleChambers, ParliamentChamber } from "src/data/models/Parliament";
-import { getParty } from "../parties";
 
 const nationalCouncil: ParliamentChamber = {
   name: "Nationalrat",
@@ -16,7 +15,6 @@ const nationalCouncil: ParliamentChamber = {
     {
       name: "Klub der SPÖ",
       abbr: "SPÖ-Klub",
-      color: getParty('SPÖ').color,
       parties: [
         "SPÖ",
       ],
@@ -32,7 +30,6 @@ const nationalCouncil: ParliamentChamber = {
     {
       name: "Klub der Grünen",
       abbr: "Grüne-Klub",
-      color: getParty('GRÜNE').color,
       parties: [
         "GRÜNE",
       ],
@@ -40,7 +37,6 @@ const nationalCouncil: ParliamentChamber = {
     {
       name: "Klub von NEOS",
       abbr: "NEOS-Klub",
-      color: getParty('NEOS').color,
       parties: [
         "NEOS",
       ],
@@ -48,7 +44,6 @@ const nationalCouncil: ParliamentChamber = {
     {
       name: "Klub der FPÖ",
       abbr: "FPÖ-Klub",
-      color: getParty('FPÖ').color,
       parties: [
         "FPÖ",
       ],
@@ -56,7 +51,6 @@ const nationalCouncil: ParliamentChamber = {
     {
       name: "Klub der ÖVP",
       abbr: "ÖVP-Klub",
-      color: getParty('ÖVP').color,
       parties: [
         "ÖVP",
       ],
@@ -78,7 +72,6 @@ const federalCouncil: ParliamentChamber = {
     {
       name: "Bundesratsfraktion der SPÖ",
       abbr: "SPÖ",
-      color: getParty('SPÖ').color,
       parties: [
         "SPÖ",
       ],
@@ -94,7 +87,6 @@ const federalCouncil: ParliamentChamber = {
     {
       name: "Bundesratsfraktion der Grünen",
       abbr: "GRÜNE",
-      color: getParty('GRÜNE').color,
       parties: [
         "GRÜNE",
       ],
@@ -102,7 +94,6 @@ const federalCouncil: ParliamentChamber = {
     {
       name: "Bundesratsfraktion der ÖVP",
       abbr: "ÖVP",
-      color: getParty('ÖVP').color,
       parties: [
         "ÖVP",
       ],
@@ -110,7 +101,6 @@ const federalCouncil: ParliamentChamber = {
     {
       name: "Freiheitliche Bundesratsfraktion",
       abbr: "FPÖ",
-      color: getParty('FPÖ').color,
       parties: [
         "FPÖ",
       ],

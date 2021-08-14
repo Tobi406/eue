@@ -1,4 +1,3 @@
-import { getParty } from "src/data/member-states/parties";
 import Parliament from "src/data/models/Parliament";
 
 const legislativeNÖ: Parliament = {
@@ -6,7 +5,6 @@ const legislativeNÖ: Parliament = {
   groups: [
     {
       name: "fraktionslos",
-      color: getParty('Independent').color,
       parties: [
         "Independent",
       ],
@@ -14,7 +12,6 @@ const legislativeNÖ: Parliament = {
     {
       name: "Landtagsfraktion der NEOS Niederösterreich",
       abbr: "NEOS",
-      color: getParty('NEOS').color,
       parties: [
         "NEOS",
       ],
@@ -22,7 +19,6 @@ const legislativeNÖ: Parliament = {
     {
       name: "Freiheitlicher Klub im NÖ Landtag",
       abbr: "FPÖ",
-      color: getParty('FPÖ').color,
       parties: [
         "FPÖ",
       ],
@@ -30,7 +26,6 @@ const legislativeNÖ: Parliament = {
     {
       name: "Klub der Sozialdemokratischen Landtagsabgeordneten Niederösterreichs",
       abbr: "SPÖ",
-      color: getParty('SPÖ').color,
       parties: [
         "SPÖ",
       ],
@@ -38,7 +33,6 @@ const legislativeNÖ: Parliament = {
     {
       name: "Landtagsklub der Volkspartei Niederösterreich",
       abbr: "ÖVP",
-      color: getParty('ÖVP').color,
       parties: [
         "ÖVP",
       ],
@@ -46,7 +40,6 @@ const legislativeNÖ: Parliament = {
     {
       name: "Die Grünen im NÖ Landtag",
       abbr: "GRÜNE",
-      color: getParty('GRÜNE').color,
       parties: [
         "GRÜNE",
       ],
