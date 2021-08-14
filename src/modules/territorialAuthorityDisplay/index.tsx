@@ -1,4 +1,4 @@
-import { FC, ReactElement } from "react";
+import React, { FC, ReactElement, ReactNode } from "react";
 import Text from "src/common/Text";
 import { MultipleChambers, ParliamentChamber } from "src/data/models/Parliament";
 import TerritorialAuthority, { MemberState } from "src/data/models/TerritorialAuthority";
@@ -12,8 +12,6 @@ import { getParty } from "src/data/member-states/parties";
 const optStr = (str: string | undefined, mod: (str: string) => string) => {
   return typeof str !== "undefined" ? mod(str) : '';
 };
-
-optStr('abc', str => `(${str})`);
 
 const RenderChamber: FC<{
   chamber: ParliamentChamber,
@@ -65,7 +63,10 @@ const TerritorialAuthorityDisplay: FC<{
         seats={executive.seats}
       />
       <Text>
-        The government is currently headed by someone from <PartyDisplay party={getParty(executive.head)} />
+        The government is currently headed by someone from <PartyDisplay party={getParty(executive.head)} /> <br />
+        It is a government of {executive.coalition
+          .map<ReactNode>(coalitionPartner => <PartyDisplay party={getParty(coalitionPartner)} />)
+          .reduce((prev, cur) => ([prev, ', ', cur]))}
       </Text>
       {legislativeType === "unicameral"
         ? <RenderChamber chamber={(legislative as ParliamentChamber)} />
