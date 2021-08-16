@@ -5,6 +5,10 @@ import { SunburstChartInstance } from "sunburst-chart";
 
 const Container = styled.div`
   width: 300px;
+
+  .sunburst-tooltip {
+    z-index: 50;
+  }
 `;
 
 interface SunburstData {
