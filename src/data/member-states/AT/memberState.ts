@@ -15,7 +15,7 @@ import taW from "./subdivisions/W/territorialAuthority";
 const memberStateAT: MemberState = {
   name: "Österreich, Austria",
   abbr: "AT",
-  officialName: "Republic of Austria, Republik Österreich",
+  officialName: "Republik Österreich, Republic of Austria",
   executive: bundesregierung,
   legislative: parliament,
   subdivisions: {

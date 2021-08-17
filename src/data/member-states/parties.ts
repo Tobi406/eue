@@ -1,6 +1,7 @@
 import Party, { Parties } from "src/data/models/Party";
 import partiesAll from "./all/parties";
 import partiesAT from "./AT/parties";
+import partiesDE from "./DE/parties";
 
 
 const addIds = (parties: Party[]): Party[] => {
@@ -8,12 +9,18 @@ const addIds = (parties: Party[]): Party[] => {
 }
 
 const parties: Parties = {
-  AT: addIds(partiesAT),
-  ALL: addIds(partiesAll),
+  AT: partiesAT,
+  DE: partiesDE,
+  ALL: partiesAll,
 };
 
 export const allParties = Object.values(
-  Object.values(parties)
+  Object.values(
+    Object.fromEntries(
+      Object.entries(parties)
+        .map(([key, value]) => ([key, addIds(value)]))
+    )
+  )
     .reduce((a, b) => ([
       ...a,
       ...b,

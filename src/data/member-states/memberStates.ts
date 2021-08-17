@@ -1,10 +1,11 @@
 import { Group, MultipleChambers, ParliamentChamber } from "../models/Parliament";
 import TerritorialAuthority, { MemberState, MemberStates } from "../models/TerritorialAuthority";
 import memberStateAT from "./AT/memberState";
+import memberStateDE from "./DE/memberState";
 import { getParty } from "./parties";
 
 const addGroupColor = (group: Group) => {
-  if (group.parties.length === 1 && group.color === undefined && typeof group.parties[0] === "string") {
+  if (group.parties.length > 0 && group.color === undefined && typeof group.parties[0] === "string") {
     const party = getParty(group.parties[0]);
     if (party.color !== undefined) {
       group.color = party.color;
@@ -36,6 +37,7 @@ const addDefaultColors = (ta: TerritorialAuthority) => {
 
 let memberStates: MemberStates = {
   AT: memberStateAT,
+  DE: memberStateDE,
 };
 
 memberStates = Object.fromEntries(
