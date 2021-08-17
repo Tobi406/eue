@@ -52,7 +52,7 @@ const Semicircle: FC<{
   
   const ref = useRef<SVGSVGElement>(null);
   useEffect(() => {
-    draw(data.map(d => ({...d, id: d.id.replace('&', '&')})));
+    draw(data.map(d => ({...d, id: d.id.replace(/\s/g, '&sp;')})));
   });
 
   const [focus, setFocus] = useState<string[]>([]);
@@ -100,8 +100,10 @@ const Semicircle: FC<{
 
   const cssEscape = (toEscape: string) => {
     return toEscape
-      .replace('&', '\\&')
-      .replace('/', '\\/');
+      .replace(/\s/g, '&sp;')
+      .replace(/&/g, '\\&')
+      .replace(/;/g, '\\;')
+      .replace(/\//g, '\\/');
   }
 
   return (

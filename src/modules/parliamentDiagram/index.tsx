@@ -53,31 +53,31 @@ const ParliamentDiagram: FC<{
       type SortedSeatsFunction = <T extends Nameable & Colorable>(
         getParticipating: (partyId: string, index: number) => {[x: string]: number},
         getT: (input: string) => T,
-        seatAccessor: {[k: string]: number}
+        seatAccessor: {[k: string]: number},
+        customIndexObject?: {[k: string]: number},
       ) => DataSemicircle[];
       const getSortedSeats: SortedSeatsFunction = <T extends Nameable & Colorable>(
         getParticipating: (partyId: string, index: number) => {[x: string]: number},
         getT: (input: string) => T,
-        seatAccessor: {[k: string]: number}
+        seatAccessor: {[k: string]: number},
+        customIndexObject?: {[k: string]: number},
       ) => {
-        console.log(          Object.entries(
-          Object.keys(seats)
-            .map(getParticipating)
-            .reduce((a, b) => ({...a, ...b}))
-        )
-          .sort(([keyA, valueA], [keyB, valueB]) => valueA - valueB))
         const getObj = (input: T, seats: number): DataSemicircle => ({
           id: input?.abbr ?? input.name ?? 'Unknown',
           color: input?.color ?? '#c5c5c5',
           seats: seats,
         });
+        let indexObject;
+        if (customIndexObject !== undefined) {
+          indexObject = customIndexObject;
+        } else {
+          indexObject = Object.keys(seats)
+            .map(getParticipating)
+            .reduce((a, b) => ({...a, ...b}));
+        }
         return Object.values(
           Object.fromEntries(
-            Object.entries(
-              Object.keys(seats)
-                .map(getParticipating)
-                .reduce((a, b) => ({...a, ...b}))
-            )
+            Object.entries(indexObject)
               .sort(([keyA, valueA], [keyB, valueB]) => valueA - valueB)
               .map(([key, value]) => {console.log(key);return ([
                 key,
@@ -147,12 +147,14 @@ const ParliamentDiagram: FC<{
           
           return sClubs;
         }
+        const groupIndexArray = groups.map((g, index) => ({[g?.abbr ?? g.name ?? 'Unknown']: index})).reduce((a, b) => ({...a, ...b}));
         modifiedSeats.push(...getSortedSeats<Group>(
-          partyId => ({[findGroup(partyId)?.abbr ?? findGroup(partyId).name ?? 'Unknown']: findGroupIndex(partyId)}),
+          /* without real purpose: */ partyId => ({[findGroup(partyId)?.abbr ?? findGroup(partyId).name ?? 'Unknown']: findGroupIndex(partyId)}),
           (groupId) => {console.log(groupId);return groups.find(group => (group?.abbr ?? group.name) === groupId || group.name === groupId)!},
           removeDuplicates(
             getGroupSeats(),
-          )
+          ),
+          groupIndexArray,
         ));
       }
       if (methodSemi === "epgroups") {
