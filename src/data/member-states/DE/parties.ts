@@ -74,6 +74,11 @@ let partiesDE: Party[] = [
     europeanGroup: "EPP",
   },
   {
+    name: "Brandenburger Vereinigte Bürgerbewegungen/Freie Wähler",
+    abbr: "BVB/FW",
+    color: "#043390",
+  },
+  {
     name: "Familien-Partei Deutschlands",
     abbr: "Familie",
     color: "#ff6600",
@@ -92,6 +97,16 @@ let partiesDE: Party[] = [
     abbr: "AfD",
     color: "#009ee0",
     europeanGroup: "ID",
+  },
+  {
+    name: "Bürger in Wut",
+    abbr: "BIW",
+    color: "#005ab0",
+  },
+  {
+    name: "Nationaldemokratische Partei Deutschlands",
+    abbr: "NPD",
+    color: "#8b4726",
   },
 ];
 
