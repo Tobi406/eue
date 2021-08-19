@@ -18,8 +18,6 @@ const Link: FC<{
     .split(/[?#]/)
     [0];
 
-  console.log(decodeURI(currentPath), props.href, decodeURI(currentPath) === props.href);
-
   return (
     <NextLink {...props} passHref>
       <StyledLink
