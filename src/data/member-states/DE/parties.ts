@@ -28,6 +28,12 @@ let partiesDE: Party[] = [
     europeanGroup: "G/EFA",
   },
   {
+    name: "Südschleswigscher Wählerverband",
+    abbr: "SSW",
+    color: "#003c8f",
+    europeanParty: "EFA",
+  },
+  {
     name: "Piratenpartei Deutschland",
     abbr: "Piraten",
     color: "#ff820a",

@@ -10,6 +10,14 @@ import taHB from "./subdivisions/HB/territorialAuthority";
 import taHE from "./subdivisions/HE/territorialAuthority";
 import taHH from "./subdivisions/HH/territorialAuthority";
 import taMV from "./subdivisions/MV/territorialAuthority";
+import taNI from "./subdivisions/NI/territorialAuthority";
+import taNW from "./subdivisions/NW/territorialAuthority";
+import taRP from "./subdivisions/RP/territorialAuthority";
+import taSH from "./subdivisions/SH/territorialAuthority";
+import taSL from "./subdivisions/SL/territorialAuthority";
+import taSN from "./subdivisions/SN/territorialAuthority";
+import taST from "./subdivisions/ST/territorialAuthority";
+import taTH from "./subdivisions/TH/territorialAuthority";
 
 const memberStateDE: MemberState = {
   name: "Deutschland, Germany",
@@ -26,6 +34,14 @@ const memberStateDE: MemberState = {
     HH: taHH,
     HE: taHE,
     MV: taMV,
+    NI: taNI,
+    NW: taNW,
+    RP: taRP,
+    SL: taSL,
+    SN: taSN,
+    ST: taST,
+    SH: taSH,
+    TH: taTH,
   },
   headOfState: "SPD",
   epDelegation: seatsDE,
