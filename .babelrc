@@ -4,5 +4,15 @@
     ["styled-components", {
       "ssr": true
     }]
-  ]
+  ],
+  "env": {
+    "production": {
+      "plugins": [
+        ["styled-components", {
+          "ssr": true,
+          "displayName": false
+        }]
+      ]
+    }
+  }
 }
