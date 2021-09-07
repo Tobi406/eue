@@ -1,10 +1,12 @@
-import { FC, Fragment, ReactElement } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RemoveScrollBar } from "react-remove-scroll-bar";
+import CollapsibleList, { UnorderedList } from "src/common/CollapsibleList";
 import Link from "src/common/Link";
 import memberStates from "src/data/member-states/memberStates";
+import { TerritorialAuthorities } from "src/data/models/TerritorialAuthority";
 import { RootState } from "src/store";
 import styled, { css } from "styled-components";
+import { change } from "./sidebarSlice";
 
 const Container = styled.aside<{
   sidebarOpen: boolean
@@ -45,35 +47,42 @@ const Container = styled.aside<{
   }
 `;
 
-const Sidebar: FC<{}> = (): ReactElement => {
+const getTAsList = (territorialAuthorities: TerritorialAuthorities, parents?: string[]) => {
+
+  const getLink = (ta: string) => {
+    const joinParents = parents?.map(parent => `${parent}/subdivisions/`) ?? []; 
+    return `/member-states/${joinParents.join()}${ta}`;
+  };
+
+  return (
+    Object.entries(territorialAuthorities).map(([ta, taInfo]) => <CollapsibleList
+      listItem={
+        <Link
+          href={getLink(ta)}
+        >
+          {taInfo.name}
+        </Link>
+      }
+    >
+      {typeof taInfo?.subdivisions !== "undefined" && getTAsList(taInfo.subdivisions, parents ?? [...(parents ?? []), ta])}
+    </CollapsibleList>)
+  );
+};
+
+const Sidebar = () => {
   const sidebarOpen = useSelector((state: RootState) => state.sidebar.sidebarOpen);
+  const dispatch = useDispatch();
 
   return <>
     <Container
       sidebarOpen={useSelector((state: RootState) => state.sidebar.sidebarOpen)}
+      onClick={(e) => {
+        if (window.innerWidth <= 960 && (e.target as HTMLElement).tagName === "A") dispatch(change());
+      }}
     >
-      <ul>
-        {Object.entries(memberStates).map(([ms, msInfo], index) => <Fragment key={index}>
-          <li>
-            <Link
-              href={`/member-states/${ms}`}
-            >
-              {msInfo.name}
-            </Link>
-          </li>
-          {typeof msInfo?.subdivisions !== "undefined" && <ul>
-            {Object.entries(msInfo.subdivisions).map(([sd, sdInfo], index) => <Fragment key={index}>
-              <li>
-                <Link
-                  href={`/member-states/${ms}/subdivisions/${sd}`}
-                >
-                  {sdInfo.name}
-                </Link>
-              </li>
-            </Fragment>)}
-          </ul>}
-        </Fragment>)}
-      </ul>
+      <UnorderedList>
+        {getTAsList(memberStates)}
+      </UnorderedList>
     </Container>
     {sidebarOpen && <RemoveScrollBar />}
   </>

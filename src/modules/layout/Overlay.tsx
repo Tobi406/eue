@@ -1,8 +1,7 @@
-import { FC } from "react";
 import { ReactElement } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled, { css } from "styled-components";
 import { RootState } from 'src/store';
+import styled, { css } from "styled-components";
 import { change } from "./sidebarSlice";
 
 const Container = styled.div<{
@@ -21,7 +20,7 @@ const Container = styled.div<{
   `}
 `;
 
-const Overlay: FC<{}> = (): ReactElement => {
+const Overlay = (): ReactElement => {
   const dispatch = useDispatch();
 
   return <Container

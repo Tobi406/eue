@@ -19,7 +19,10 @@ const Link: FC<{
     [0];
 
   return (
-    <NextLink {...props} passHref>
+    <NextLink
+      {...props}
+      passHref
+    >
       <StyledLink
         active={decodeURI(currentPath) === props.href}
       >
