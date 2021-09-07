@@ -32,6 +32,7 @@ const Container = styled.div`
   flex: 1 1 85%;
   flex-direction: column;
   width: fill-available;
+  min-height: 100vh;
 `;
 const Content = styled.main`
   padding: 5px;

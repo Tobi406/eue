@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.footer`
   bottom: 0;
+  margin-top: auto;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.white};
   border-top: 2px solid ${({ theme }) => theme.colors.primary};

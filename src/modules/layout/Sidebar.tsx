@@ -13,7 +13,7 @@ const Container = styled.aside<{
   top: 0;
   z-index: 100;
   position: sticky;
-  left: -100%;
+  left: -1000%;
   display: initial;
   overflow-y: auto;
 
@@ -36,7 +36,7 @@ const Container = styled.aside<{
 
 
   @media screen and (max-width: 960px) {
-    position: absolute;
+    position: fixed;
     transition: left .5s;
 
     ${props => props.sidebarOpen && css`
