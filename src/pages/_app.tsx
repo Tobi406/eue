@@ -12,6 +12,7 @@ import Sidebar from 'src/modules/layout/Sidebar';
 import 'styles/globals.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { UIDReset } from 'react-uid';
+import MDXProvider from 'src/common/MDXProvider';
 
 fontAwesomeConfig.autoAddCss = false;
 
@@ -51,25 +52,27 @@ export default function App({ Component, pageProps }: AppProps) {
     </Head>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <UIDReset>
-          <Overlay />
-          <Page>
-            <Sidebar />
-            <Container>
-              <Header
-                title="EUE"
-              />
-              <Content>
-                <Component {...pageProps} />
-              </Content>
-              <Footer>
-                Made with &lt;3 <br />
-                This website is not connected with or benefits from the support, sponsorship or approval of any of
-                the institutions, bodies, offices, agencies and organs of the European Union or the Council of Europe.
-              </Footer>
-            </Container>
-          </Page>
-        </UIDReset>
+        <MDXProvider>
+          <UIDReset>
+            <Overlay />
+            <Page>
+              <Sidebar />
+              <Container>
+                <Header
+                  title="EUE"
+                />
+                <Content>
+                  <Component {...pageProps} />
+                </Content>
+                <Footer>
+                  Made with &lt;3 <br />
+                  This website is not connected with or benefits from the support, sponsorship or approval of any of
+                  the institutions, bodies, offices, agencies and organs of the European Union or the Council of Europe.
+                </Footer>
+              </Container>
+            </Page>
+          </UIDReset>
+        </MDXProvider>
       </ThemeProvider>
     </Provider>
   </>

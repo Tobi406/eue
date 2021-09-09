@@ -16,6 +16,9 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@mdx-js/loader": "^1.6.22",
+    "@mdx-js/react": "^1.6.22",
+    "@next/mdx": "^11.1.2",
     "@reduxjs/toolkit": "^1.6.1",
     "d3": "^6.0.0",
     "d3-parliament": "^1.0.1",
@@ -36,6 +39,7 @@
   },
   "devDependencies": {
     "@types/d3": "^7.0.0",
+    "@types/mdx-js__react": "^1.5.4",
     "@types/react": "17.0.15",
     "@types/react-select": "^4.0.17",
     "@types/styled-components": "^5.1.11",
