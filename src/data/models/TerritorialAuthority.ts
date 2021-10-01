@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import Executive from "./Executive";
 import Parliament, { Seats } from "./Parliament";
 import Nameable from "./util/Nameable";
@@ -11,6 +12,7 @@ interface TerritorialAuthority extends Nameable {
 
 export interface MemberState extends TerritorialAuthority {
   headOfState: string,
+  headOfStateText?: ReactNode,
   epDelegation: Seats,
 }
 

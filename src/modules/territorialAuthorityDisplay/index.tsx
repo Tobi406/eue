@@ -8,6 +8,7 @@ import Link from "src/common/Link";
 import { useRouter } from "next/router";
 import PartyDisplay from "../partyDisplay";
 import { getParty } from "src/data/member-states/parties";
+import taBB from "src/data/member-states/DE/subdivisions/BB/territorialAuthority";
 
 const optStr = (str: string | undefined, mod: (str: string) => string) => {
   return typeof str !== "undefined" ? mod(str) : '';
@@ -35,6 +36,25 @@ const Break = styled.div`
   flex: 100%;
 `;
 
+const renderHOS = (ms: MemberState) => {
+  const party = <PartyDisplay party={getParty(ms.headOfState)} />;
+
+  if (ms.headOfStateText !== undefined) {
+    return (ms.headOfStateText as (props: {
+      party: ReactNode
+    }) => ReactNode)({
+      party: party,
+    });
+  }
+  
+  return (
+    <Text>
+      The head of state of the {ms.officialName} is currently from {party}
+    </Text>
+  );
+};
+
+
 const TerritorialAuthorityDisplay: FC<{
   ta: TerritorialAuthority,
 }> = ({ ta }): ReactElement => {
@@ -55,9 +75,13 @@ const TerritorialAuthorityDisplay: FC<{
       >
         {`${ta.name} (${ta.officialName}${optStr(ta?.abbr, abbr => `, ${abbr}`)})`}
       </Text>
-      {isMemberState && <Text>
+      {isMemberState && renderHOS(ta as MemberState)/*<Text>
         The head of state of the {ta.officialName} is currently from <PartyDisplay party={getParty((ta as MemberState).headOfState)} />
-      </Text>}
+      </Text>{(ta as MemberState).headOfStateText !== undefined ?
+        ((ta as MemberState).headOfStateText as (props: {party: ReactNode}) => ReactNode)
+        ({
+          party: <PartyDisplay party={getParty((ta as MemberState).headOfState)} />,
+        }) : ''}</>*/}
       <ParliamentDiagram
         title={`${executive.name} ${optStr(executive?.abbr, abbr => `(${abbr})`)}`}
         seats={executive.seats}

@@ -11,6 +11,7 @@ import taSTMK from "./subdivisions/STMK/territorialAuthority";
 import taT from "./subdivisions/T/territorialAuthority";
 import taVBG from "./subdivisions/VBG/territorialAuthority";
 import taW from "./subdivisions/W/territorialAuthority";
+import hosText from "./hos.mdx";
 
 const memberStateAT: MemberState = {
   name: "Österreich, Austria",
@@ -30,6 +31,7 @@ const memberStateAT: MemberState = {
     W: taW,
   },
   headOfState: "GRÜNE",
+  headOfStateText: hosText,
   epDelegation: seatsAT,
 };
 
