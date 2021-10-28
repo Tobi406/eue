@@ -1,14 +1,14 @@
-import React, { FC, ReactElement, ReactNode } from "react";
+import { useRouter } from "next/router";
+import { FC, ReactElement, ReactNode, useEffect, useState } from "react";
+import Link from "src/common/Link";
 import Text from "src/common/Text";
+import { getParty } from "src/data/member-states/parties";
 import { MultipleChambers, ParliamentChamber } from "src/data/models/Parliament";
 import TerritorialAuthority, { MemberState } from "src/data/models/TerritorialAuthority";
 import styled from "styled-components";
+import useMap from "../map/hooks/useMap";
 import ParliamentDiagram from "../parliamentDiagram";
-import Link from "src/common/Link";
-import { useRouter } from "next/router";
 import PartyDisplay from "../partyDisplay";
-import { getParty } from "src/data/member-states/parties";
-import taBB from "src/data/member-states/DE/subdivisions/BB/territorialAuthority";
 
 const optStr = (str: string | undefined, mod: (str: string) => string) => {
   return typeof str !== "undefined" ? mod(str) : '';
@@ -37,21 +37,24 @@ const Break = styled.div`
 `;
 
 const renderHOS = (ms: MemberState) => {
+  const [HosText, setHosText] = useState(<></>);
   const party = <PartyDisplay party={getParty(ms.headOfState)} />;
 
-  if (ms.headOfStateText !== undefined) {
-    return (ms.headOfStateText as (props: {
-      party: ReactNode
-    }) => ReactNode)({
-      party: party,
-    });
+  useEffect(() => {
+    getHosText();
+  }, [ms.abbr ?? ms.name]);
+  const getHosText = async () => {
+    try {
+      const hos = (await import(`src/data/member-states/${ms.abbr ?? ms.name}/hos.mdx`)).default;
+      setHosText(hos({
+        party: party,
+      }));
+    } catch (error: any) {
+      if (error.code !== 'MODULE_NOT_FOUND') console.error(error);
+    }
   }
-  
-  return (
-    <Text>
-      The head of state of the {ms.officialName} is currently from {party}
-    </Text>
-  );
+
+  return HosText;
 };
 
 
@@ -66,8 +69,12 @@ const TerritorialAuthorityDisplay: FC<{
   const currentPath = router.asPath
     .split(/[?#]/)
     [0];
-  
-  
+  const { 'member-state': memberState } = router.query;
+
+  const Map = useMap();
+
+  console.log(ta)
+
   return (
     <>
       <Text
@@ -75,22 +82,19 @@ const TerritorialAuthorityDisplay: FC<{
       >
         {`${ta.name} (${ta.officialName}${optStr(ta?.abbr, abbr => `, ${abbr}`)})`}
       </Text>
-      {isMemberState && renderHOS(ta as MemberState)/*<Text>
-        The head of state of the {ta.officialName} is currently from <PartyDisplay party={getParty((ta as MemberState).headOfState)} />
-      </Text>{(ta as MemberState).headOfStateText !== undefined ?
-        ((ta as MemberState).headOfStateText as (props: {party: ReactNode}) => ReactNode)
-        ({
-          party: <PartyDisplay party={getParty((ta as MemberState).headOfState)} />,
-        }) : ''}</>*/}
+      <Map
+        nutsCode={ta.nutsCode ?? (memberState as string)}
+      />
+      {isMemberState && renderHOS(ta as MemberState)}
       <ParliamentDiagram
         title={`${executive.name} ${optStr(executive?.abbr, abbr => `(${abbr})`)}`}
         seats={executive.seats}
       />
       <Text>
         The government is currently headed by someone from <PartyDisplay party={getParty(executive.head)} /> <br />
-        It is a government of {executive.coalition
+        {executive.coalition.length > 0 && <>It is a government of {executive.coalition
           .map<ReactNode>(coalitionPartner => <PartyDisplay party={getParty(coalitionPartner)} />)
-          .reduce((prev, cur) => ([prev, ', ', cur]))}
+          .reduce((prev, cur) => ([prev, ', ', cur]))}</>}
       </Text>
       {legislativeType === "unicameral"
         ? <RenderChamber chamber={(legislative as ParliamentChamber)} />
