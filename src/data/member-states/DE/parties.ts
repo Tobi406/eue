@@ -14,6 +14,11 @@ let partiesDE: Party[] = [
     color: "#b5152b",
   },
   {
+    name: "Partei für Franken",
+    abbr: "DIE FRANKEN",
+    color: "#FC3",
+  },
+  {
     name: "Sozialdemokratische Partei Deutschlands",
     abbr: "SPD",
     color: "#E3000F",
@@ -113,6 +118,16 @@ let partiesDE: Party[] = [
     name: "Nationaldemokratische Partei Deutschlands",
     abbr: "NPD",
     color: "#8b4726",
+  },
+  {
+    name: "Bayernpartei",
+    abbr: "BP",
+    color: "#7FFFFF",
+    europeanParty: "EFA",
+  },
+  {
+    name: "Tierschutzpartei",
+    color: "#EEEEEE",
   },
 ];
 

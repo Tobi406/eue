@@ -8,11 +8,11 @@ interface TerritorialAuthority extends Nameable {
   executive: Executive,
   legislative: Parliament,
   subdivisions?: TerritorialAuthorities,
+  nutsCode?: string,
 }
 
 export interface MemberState extends TerritorialAuthority {
   headOfState: string,
-  headOfStateText?: ReactNode,
   epDelegation: Seats,
 }
 
