@@ -51,7 +51,7 @@ const getTAsList = (territorialAuthorities: TerritorialAuthorities, parents?: st
 
   const getLink = (ta: string) => {
     const joinParents = parents?.map(parent => `${parent}/subdivisions/`) ?? []; 
-    return `/member-states/${joinParents.join()}${ta}`;
+    return `/member-states/${joinParents.join('')}${ta}`;
   };
 
   return (
@@ -64,7 +64,7 @@ const getTAsList = (territorialAuthorities: TerritorialAuthorities, parents?: st
         </Link>
       }
     >
-      {typeof taInfo?.subdivisions !== "undefined" && getTAsList(taInfo.subdivisions, parents ?? [...(parents ?? []), ta])}
+      {taInfo?.subdivisions !== undefined && getTAsList(taInfo.subdivisions, [...(parents ?? []), ta])}
     </CollapsibleList>)
   );
 };
