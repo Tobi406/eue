@@ -1,10 +1,10 @@
 import { GeoJSON as GeoJSONType } from "geojson";
-import { PathOptions } from "leaflet";
 import 'leaflet/dist/leaflet.css';
-import { ComponentProps, useRef } from "react";
-import { GeoJSON, MapContainer } from "react-leaflet";
+import { ComponentProps } from "react";
+import { GeoJSON, MapContainer, useMap } from "react-leaflet";
 import styled from "styled-components";
 import useSWR from "swr";
+import bbox from 'geojson-bbox';
 
 interface NutsProperties {
   CNTR_CODE: string,
@@ -93,8 +93,6 @@ const Map = ({
     return nutsId.substring(0, 2) === nutsCode.substring(0,2);
   };
 
-  const mapRef = useRef();
-
   const Nuts0Outline = () => <CustomGeoJSON
     key={5}
     data={nuts0}
@@ -128,11 +126,25 @@ const Map = ({
     third: 'Current object',
   };
 
+  const setCenterFeature = <T, >(feature: GeoJSON.Feature, toReturn: T): T => {
+    const result = bbox(feature);
+    const [lng1, lat1, lng2, lat2] = result;
+
+    const map = useMap();
+
+    map.fitBounds([[lat1, lng1], [lat2, lng2]]);
+    // or calculate center:
+    //const lng = (lng1+lng2)/2;
+    //const lat = (lat1+lat2)/2;
+    //map.setView([lat, lng], 5);
+    //console.log('Set map to ' + [lat, lng])
+    return toReturn;
+  }
+
   return (
     <>
       <p>Current NUTS level: {nutsLevel}</p>
       <MapContainer
-        ref={mapRef}
         style={{
           height: '500px',
           width:'90%',
@@ -150,7 +162,7 @@ const Map = ({
             })}
             filter={(f) => {
               return (f.properties as NutsProperties).CNTR_CODE === nutsCode
-                ? false
+                ? setCenterFeature(f, false)
                 : true;
             }}
           />
@@ -182,8 +194,7 @@ const Map = ({
               weight: 1,
             })}
             filter={(f) => {
-              console.log(f.properties.NUTS_ID!, nutsCode.substring(0, 1))
-              return !isInMS(f.properties.NUTS_ID!) || f.properties.NUTS_ID! !== nutsCode.substring(0, 1);
+              return !isInMS(f.properties.NUTS_ID!) || f.properties.NUTS_ID!.substring(0, 3) !== nutsCode.substring(0, 3) ? true : setCenterFeature(f, false);
             }}
           />
           <CustomGeoJSON
@@ -214,8 +225,7 @@ const Map = ({
               weight: 1,
             })}
             filter={(f) => {
-              console.log(f.properties.NUTS_ID!, nutsCode.substring(0, 2))
-              return !isInMS(f.properties.NUTS_ID!) || f.properties.NUTS_ID! !== nutsCode.substring(0, 2);
+              return !isInMS(f.properties.NUTS_ID!) || f.properties.NUTS_ID!.substring(0, 4) !== nutsCode.substring(0, 4) ? true : setCenterFeature(f, false);
             }}
           />
           <CustomGeoJSON

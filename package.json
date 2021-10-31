@@ -22,6 +22,7 @@
     "@reduxjs/toolkit": "^1.6.1",
     "d3": "^6.0.0",
     "d3-parliament": "^1.0.1",
+    "geojson-bbox": "^0.0.0",
     "next": "^11.0.1",
     "next-plugin-preact": "^3.0.6",
     "polished": "^4.1.3",
