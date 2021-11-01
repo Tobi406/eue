@@ -12,7 +12,7 @@ const seatsDE: Seats = {
   PARTEI: 1,
   ÖDP: 1,
   Piraten: 1,
-  'Volt DE': 1,
+  Volt: 1,
   Familie: 1,
   LKR: 1,
   'Ind G/EFA': 1,
