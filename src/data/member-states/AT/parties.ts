@@ -54,6 +54,4 @@ let partiesAT: Party[] = [
   },
 ];
 
-partiesAT = partiesAT.map(party => ({...party, state: "AT"}));
-
 export default partiesAT;

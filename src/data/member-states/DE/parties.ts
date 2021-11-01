@@ -46,7 +46,7 @@ let partiesDE: Party[] = [
   },
   {
     name: "Volt Deutschland",
-    abbr: "Volt DE",
+    abbr: "Volt",
     color: "#562883",
     europeanGroup: "G/EFA",
   },
@@ -130,7 +130,5 @@ let partiesDE: Party[] = [
     color: "#EEEEEE",
   },
 ];
-
-partiesDE = partiesDE.map(party => ({...party, state: "DE"}));
 
 export default partiesDE;
