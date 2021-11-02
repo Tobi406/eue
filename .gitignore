@@ -35,3 +35,6 @@ yarn-error.log*
 
 # EUE
 src/data/nuts
+
+# Local Netlify folder
+.netlify

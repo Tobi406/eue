@@ -9,7 +9,8 @@
     "export": "next export",
     "exportbuild": "npm run build && npm run export",
     "exportrun": "npm run exportbuild && serve out",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "prebuild": "node plugins/netlify-prebuild-plugin/node.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -47,7 +48,9 @@
     "@types/react": "17.0.15",
     "@types/react-select": "^4.0.17",
     "@types/styled-components": "^5.1.11",
+    "axios": "^0.24.0",
     "babel-plugin-styled-components": "^1.13.2",
+    "netlify-cli": "^6.14.7",
     "next-compose-plugins": "^2.2.1",
     "patch-package": "^6.4.7",
     "serve": "^12.0.0",

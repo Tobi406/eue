@@ -7,5 +7,5 @@ You can find the data in `/src/data`, which uses TypeScript (`.ts`) files. This 
 
 ## Setup
 
-### Run scripts
-You need to run the `downloadNuts.py` script to collect some NUTS data
+### Download NUTS data
+Run `npm run prebuild` to download some NUTS data for the maps.
