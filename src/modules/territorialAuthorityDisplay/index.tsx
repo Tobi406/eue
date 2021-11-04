@@ -9,10 +9,7 @@ import styled from "styled-components";
 import useMap from "../map/hooks/useMap";
 import ParliamentDiagram from "../parliamentDiagram";
 import PartyDisplay from "../partyDisplay";
-
-const optStr = (str: string | undefined, mod: (str: string) => string) => {
-  return typeof str !== "undefined" ? mod(str) : '';
-};
+import optStr from "../util/optStr";
 
 const RenderChamber: FC<{
   chamber: ParliamentChamber,

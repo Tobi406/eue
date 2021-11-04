@@ -3,11 +3,6 @@ import partiesAll from "./all/parties";
 import partiesAT from "./AT/parties";
 import partiesDE from "./DE/parties";
 
-
-const addIds = (parties: Party[]): Party[] => {
-  return parties.map(party => ({...party, id: `${party.state}-${party.abbr ?? party.name}`}));
-}
-
 const parties: Parties = {
   AT: partiesAT,
   DE: partiesDE,
@@ -26,10 +21,14 @@ export const allParties = (() => {
       ...party,
       idNecessary: idParties
         .filter(idParty => idParty.name !== party.name && idParty.state !== party.state)
-        .some(idParty => idParty.abbr === party.abbr)
+        .some(idParty => idParty.abbr?.toLowerCase() === party.abbr?.toLowerCase())
     } as Party));
   return allParties;
 })();
+
+export const getPartyLink = (party: Party) => {
+  return party.idNecessary! ? party.id! : (party.abbr ?? party.name); 
+};
 
 export const getParty = (partyId: string, state?: string) => {
   if (state !== undefined) return parties[state].find(party => (party?.abbr ?? party.name) || party.name === partyId)!;

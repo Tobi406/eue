@@ -6,13 +6,19 @@ interface CSSProperties {
   color?: string,
   fontSize?: string,
   margin?: string,
+  bold?: boolean,
+  fontWeight?: string | number,
+  italics?: boolean,
 }
 
 const CSS = css<CSSProperties>`
-  ${props => props.textAlign ? css`text-align: ${props.textAlign};` : ''}
+  ${props => props.textAlign && css`text-align: ${props.textAlign};`}
   ${props => props.color && css`color: ${props.color.startsWith('$') ? props.theme.colors[props.color.replace('$', '')] : props.color};`}
   ${props => props.fontSize && css`font-size: ${props.fontSize};`}
   ${props => props.margin && css`margin: ${props.margin};` || css`margin: 0;`}
+  ${props => props.bold && css`font-weight: bold;`}
+  ${props => props.fontWeight && css`font-weight: ${props.fontWeight};`}
+  ${props => props.italics && css`font-style: italic;`}
 `
 
 const Header1 = styled.h1`${CSS}`;
