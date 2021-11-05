@@ -1,5 +1,6 @@
-const optional = <E = never, T = string>(optional: T | undefined, mod: (input: T) => T | E) => {
+const optStr = (optional: string | undefined, mod: (input: string) => string) => {
   if (optional !== undefined) return mod(optional);
+  return "";
 };
 
-export default optional;
+export default optStr;
