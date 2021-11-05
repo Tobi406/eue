@@ -20,8 +20,17 @@ export interface ParliamentChamber extends Body {
   groups: Group[],
 }
 
+export enum ChamberType {
+  Higher = "HIGHER",
+  Lower = "LOWER",
+}
+
+export type MultipleChambersChamber = ParliamentChamber & {
+  type: ChamberType,
+}
+
 export interface MultipleChambers extends Nameable {
-  chambers: ParliamentChamber[],
+  chambers: MultipleChambersChamber[],
 }
 
 type Parliament = ParliamentChamber | MultipleChambers;

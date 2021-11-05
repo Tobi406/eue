@@ -1,8 +1,9 @@
-import { MultipleChambers, ParliamentChamber } from "src/data/models/Parliament";
+import { ChamberType, MultipleChambers, MultipleChambersChamber } from "src/data/models/Parliament";
 
-const bundestag: ParliamentChamber = {
+const bundestag: MultipleChambersChamber = {
   name: "Bundestag",
   abbr: "BT",
+  type: ChamberType.Lower,
   groups: [
     {
       name: "Fraktion Die Linke",
@@ -64,9 +65,10 @@ const bundestag: ParliamentChamber = {
   },
 };
 
-const bundesrat: ParliamentChamber = {
+const bundesrat: MultipleChambersChamber = {
   name: "Bundesrat",
   abbr: "Bundesrat",
+  type: ChamberType.Higher,
   groups: [
     {
       name: "Baden-Württemberg",

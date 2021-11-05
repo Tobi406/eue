@@ -1,8 +1,9 @@
-import { MultipleChambers, ParliamentChamber } from "src/data/models/Parliament";
+import { ChamberType, MultipleChambers, MultipleChambersChamber } from "src/data/models/Parliament";
 
-const nationalCouncil: ParliamentChamber = {
+const nationalCouncil: MultipleChambersChamber = {
   name: "Nationalrat",
   abbr: "NR",
+  type: ChamberType.Lower,
   seats: {
     ÖVP: 71,
     SPÖ: 40,
@@ -58,9 +59,10 @@ const nationalCouncil: ParliamentChamber = {
   ],
 };
 
-const federalCouncil: ParliamentChamber = {
+const federalCouncil: MultipleChambersChamber = {
   name: "Bundesrat",
   abbr: "BR",
+  type: ChamberType.Higher,
   seats: {
     ÖVP: 25,
     SPÖ: 19,
