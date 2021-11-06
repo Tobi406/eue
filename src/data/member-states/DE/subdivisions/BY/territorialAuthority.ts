@@ -24,6 +24,7 @@ const taBY: TerritorialAuthority = {
     UFR: taUFR,
     SCHW: taSCHW,
   },
+  subdivisionsType: 2,
 };
 
 export default taBY;
