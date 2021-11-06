@@ -35,6 +35,19 @@ const addDefaultColors = (ta: TerritorialAuthority) => {
   return ta;
 }
 
+const addSubdivisionTypes = (ta: TerritorialAuthority, parentType?: number) => {
+  if (parentType && ta.type === undefined) {
+    ta.type = parentType;
+  }
+  if (ta.subdivisions !== undefined) {
+    ta.subdivisions = Object.fromEntries(
+      Object.entries(ta.subdivisions)
+        .map(([key, value]) => ([key, addSubdivisionTypes(value, ta.subdivisionsType)]))
+    )
+  }
+  return ta;
+} 
+
 let memberStates: MemberStates = {
   AT: memberStateAT,
   DE: memberStateDE,
@@ -42,7 +55,8 @@ let memberStates: MemberStates = {
 
 memberStates = Object.fromEntries(
   Object.entries(memberStates)
-  .map(([key, value]) => ([key, addDefaultColors(value) as MemberState]))
+    .map(([key, value]) => ([key, addDefaultColors(value) as MemberState]))
+    .map(([key, value]) => ([key, addSubdivisionTypes(value as MemberState) as MemberState]))
 );
 
 export default memberStates;

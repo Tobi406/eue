@@ -29,6 +29,7 @@ const memberStateAT: MemberState = {
     VBG: taVBG,
     W: taW,
   },
+  subdivisionsType: 1,
   headOfState: "GRÜNE",
   epDelegation: seatsAT,
 };

@@ -43,6 +43,7 @@ const memberStateDE: MemberState = {
     SH: taSH,
     TH: taTH,
   },
+  subdivisionsType: 1,
   headOfState: "SPD",
   epDelegation: seatsDE,
 };
