@@ -1,4 +1,4 @@
-const optStr = <T>(optional: T | undefined, mod: (input: T) => T | string) => {
+const optStr = <T, E>(optional: T | undefined, mod: (input: T) => T | E | string) => {
   if (optional !== undefined) return mod(optional);
   return "";
 };

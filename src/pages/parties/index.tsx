@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import Link from "src/common/Link";
 import Text from "src/common/Text";
 import { allParties, getPartyLink } from "src/data/member-states/parties";
@@ -47,7 +48,7 @@ const Parties = () => {
               color={party.color}
             >
               <Text fontWeight={350}>{party.name}</Text>
-              {optional(party.abbr, abbr => <Text>({abbr})</Text>)}
+              {optional<string, ReactElement>(party.abbr, abbr => <Text>({abbr})</Text>)}
               {(party.europeanGroup || party.europeanParty) && (party.europeanGroup && party.europeanParty) ? <Text>
                 {party.europeanGroup} - {party.europeanParty}
               </Text> : <Text>
