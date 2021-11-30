@@ -1,5 +1,6 @@
+import { MDXRemote } from "next-mdx-remote";
 import { useRouter } from "next/router";
-import { FC, ReactElement, ReactNode, useEffect, useState } from "react";
+import { FC, ReactElement, ReactNode } from "react";
 import Link from "src/common/Link";
 import Text from "src/common/Text";
 import { getParty } from "src/data/member-states/parties";
@@ -34,24 +35,14 @@ const Break = styled.div`
 `;
 
 const renderHOS = (ms: MemberState) => {
-  const [HosText, setHosText] = useState(<></>);
-  const party = <PartyDisplay party={getParty(ms.headOfState)} />;
+  const { files } = ms;
 
-  useEffect(() => {
-    getHosText();
-  }, [ms.abbr ?? ms.name]);
-  const getHosText = async () => {
-    try {
-      const hos = (await import(`src/data/member-states/${ms.abbr ?? ms.name}/hos.mdx`)).default;
-      setHosText(hos({
-        party: party,
-      }));
-    } catch (error: any) {
-      if (error.code !== 'MODULE_NOT_FOUND') console.error(error);
-    }
+  if (files !== undefined && 'hos.mdx' in files) {
+    return <MDXRemote {...files['hos.mdx']} scope={{
+      party: <PartyDisplay party={getParty(ms.headOfState)} />,
+    }} />;
   }
-
-  return HosText;
+  return <></>;
 };
 
 

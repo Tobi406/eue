@@ -10,6 +10,9 @@ interface TerritorialAuthority extends Nameable {
   subdivisionsType?: number,
   type?: number,
   nutsCode?: string,
+  files?: {
+    [key: string]: any,
+  },
 }
 
 export interface MemberState extends TerritorialAuthority {

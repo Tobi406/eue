@@ -3,6 +3,9 @@ import memberStates from "src/data/member-states/memberStates";
 import TerritorialAuthority, { TerritorialAuthorities } from "src/data/models/TerritorialAuthority";
 import getNutsCode from "src/modules/map/getNutsCode";
 import TerritorialAuthorityDisplay from "src/modules/territorialAuthorityDisplay";
+import fs from 'fs/promises';
+import pathPackage from 'path';
+import { serialize } from 'next-mdx-remote/serialize';
 
 interface PropsType {
   ta: TerritorialAuthority,
@@ -19,6 +22,30 @@ const Page = ({
 }
 
 export default Page;
+
+const getFiles = async (path: string) => {
+  let collectedFiles: {[key: string]: any} = {};
+  const files = await fs.readdir(`src/data/${path}`);
+  const markdownFiles = files
+    .filter(file => file.endsWith('.mdx'))
+    .map(file => ({
+      name: file,
+      path: pathPackage.join(process.cwd(), `src/data${path}${file}`),
+    }));
+
+  for (let i = 0; i < markdownFiles.length; i++) {
+    const file = markdownFiles[i]; 
+    const markdownFile = (await fs.readFile(file.path, 'utf-8'));
+    collectedFiles[file.name] = markdownFile;
+  }
+  collectedFiles = Object.fromEntries(
+    await Promise.all(
+      Object.entries(collectedFiles)
+        .map(async ([key, value]) => ([key, await serialize(value)]))
+    ) // map trough collectedFiles, but async
+  );
+  return collectedFiles;
+};
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const props: PropsType = {} as any;
@@ -61,6 +88,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
       ta.nutsCode = getNutsCode(ta.name);
     }
   }
+
+  const path = `/member-states/${memberState}/${slug !== undefined ? (Array.isArray(slug) ? slug.join('/') : slug) : ''}`;
+  ta.files = await getFiles(path);
+
 
   props.ta = ta;
   
