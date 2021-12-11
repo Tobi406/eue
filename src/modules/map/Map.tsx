@@ -146,8 +146,8 @@ const Map = ({
       <p>Current NUTS level: {nutsLevel}</p>
       <MapContainer
         style={{
-          height: '500px',
-          width:'90%',
+          maxHeight: '500px',
+          aspectRatio: '2 / 1',
         }}
         zoom={4}
         center={[50, 25]}
