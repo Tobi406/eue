@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RemoveScrollBar } from "react-remove-scroll-bar";
 import CollapsibleList, { UnorderedList } from "src/common/CollapsibleList";
+import Flag from "src/common/Flag";
 import Link from "src/common/Link";
 import memberStates from "src/data/member-states/memberStates";
-import { TerritorialAuthorities } from "src/data/models/TerritorialAuthority";
+import TerritorialAuthority, { MemberState, TerritorialAuthorities } from "src/data/models/TerritorialAuthority";
 import { RootState } from "src/store";
 import styled, { css } from "styled-components";
 import { change } from "./sidebarSlice";
@@ -54,13 +55,17 @@ const getTAsList = (territorialAuthorities: TerritorialAuthorities, parents?: st
     return `/member-states/${joinParents.join('')}${ta}`;
   };
 
+  const isMemberState = (ta: TerritorialAuthority) => {
+    return 'epDelegation' in ta;
+  }
+
   return (
     Object.entries(territorialAuthorities).map(([ta, taInfo]) => <CollapsibleList
       listItem={
         <Link
           href={getLink(ta)}
         >
-          {taInfo.name}
+          {isMemberState(taInfo) && <Flag src={taInfo.abbr ?? taInfo.name} />} { taInfo.name}
         </Link>
       }
     >

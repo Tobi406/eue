@@ -11,7 +11,12 @@ const withMDX = require('@next/mdx')();
        config.resolve.fallback.fs = false;
      }
      return config;
-   }
+   },
+   images: {
+    loader: 'imgix',
+    path: '',
+    domains: ['flag.pk'],
+   },
 };
 
 module.exports = withPlugins([

@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import Flag from "src/common/Flag";
 import Link from "src/common/Link";
 import Text from "src/common/Text";
 import { allParties, getPartyLink } from "src/data/member-states/parties";
@@ -28,10 +29,6 @@ const PartyBox = styled.div<{
   color: black;
 `;
 
-const Flag = styled.img`
-  width: 30px;
-`;
-
 const Parties = () => {
   return (
     <>
@@ -55,7 +52,10 @@ const Parties = () => {
                 {optional(party.europeanGroup, group => group)}
                 {optional(party.europeanParty, party => party)}
               </Text>}
-              <Flag src={`https://flag.pk/flags/4x3/${(party.state ?? 'EU').toLowerCase()}.svg`} />
+              <Flag
+                width={30}
+                src={party.state!}
+              />
             </PartyBox>
           </Link>)
         }
