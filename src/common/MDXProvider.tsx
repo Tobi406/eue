@@ -1,5 +1,5 @@
 import { MDXProvider as MDXProviderOriginal, MDXProviderProps } from "@mdx-js/react";
-import { Fragment } from "react";
+import Diagram from "./Diagram";
 import Link from "./Link";
 import Text from "./Text";
 
@@ -16,6 +16,7 @@ const MDXProvider = (props: Omit<MDXProviderProps, 'components'>) => {
         h2: text('h2'),
         h3: text('h3'),
         h4: text('h4'),
+        Diagram: Diagram,
       }}
       {...props}
     />

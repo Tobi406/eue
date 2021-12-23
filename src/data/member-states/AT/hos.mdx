@@ -3,4 +3,24 @@
 <p>The current head of state of the Federal Republic of Austria is from {party}</p>
 
 ### Election
-The President is elected using direct election. 
+The President is elected using direct election.
+
+<Diagram
+  type="mermaid"
+>{`
+flowchart BT
+  People
+  President[Federal President]
+  StateParliaments[State Parliaments]
+%%
+  subgraph FederalAssembly[Federal Assembly]
+    NationalCouncil[National Council]
+    FederalCouncil[Federal Council]
+  end
+%%
+  People -->|elect| NationalCouncil
+  People -->|elect| StateParliaments
+  StateParliaments -->|elect| FederalCouncil
+  People -->|elect| President
+  President -->|takes oath before| FederalAssembly
+`}</Diagram>
