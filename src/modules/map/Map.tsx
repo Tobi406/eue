@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import { ComponentProps } from "react";
 import { GeoJSON, MapContainer, useMap } from "react-leaflet";
 import styled from "styled-components";
-import useSWR from "swr";
+import useSWR from "swr/immutable";
 import bbox from 'geojson-bbox';
 
 interface NutsProperties {
