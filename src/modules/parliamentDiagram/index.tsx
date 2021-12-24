@@ -208,31 +208,43 @@ const ParliamentDiagram: FC<{
         const europeanPartyColor = europeanParty?.color ?? '#c5c5c5';
         const europeanGroupColor = europeanGroup?.color ?? '#c5c5c5';
 
+        const sortChildren = (children: DataSunburst[], getIndex: (name: string) => number) => {
+          return children
+            .map<DataSunburst & {
+              index: number,
+            }>(child => ({
+              ...child,
+              index: getIndex(child.name),
+            }))
+            .sort((a, b) => a.index - b.index)
+            .map<DataSunburst>(({index, ...child}) => child);
+        }
+
         if (methodSun === "eg-ep-p") {
           if (!hasName(europeanGroupName, modifiedSeats.children)) {
             modifiedSeats.children.push({
-             name: europeanGroupName,
-             color: europeanGroupColor,
-             children: [],
-           });
-         }
-         const europeanGroupChild = findName(europeanGroupName, modifiedSeats.children) as DataChildren;
+              name: europeanGroupName,
+              color: europeanGroupColor,
+              children: [],
+            });
+          }
+          const europeanGroupChild = findName(europeanGroupName, modifiedSeats.children) as DataChildren;
 
-         if (!hasName(europeanPartyName, europeanGroupChild.children)) {
-           europeanGroupChild.children.push({
-             name: europeanPartyName,
-             color: europeanPartyColor,
-             children: [],
-           });
-         }
-         const europeanPartyChild = findName(europeanPartyName, europeanGroupChild.children) as DataChildren;
+          if (!hasName(europeanPartyName, europeanGroupChild.children)) {
+            europeanGroupChild.children.push({
+              name: europeanPartyName,
+              color: europeanPartyColor,
+              children: [],
+            });
+          }
+          const europeanPartyChild = findName(europeanPartyName, europeanGroupChild.children) as DataChildren;
 
-         europeanPartyChild.children.push({
-           name: partyName,
-           value: seatsCount,
-           color: partyColor,
-           state: partyState,
-         });
+          europeanPartyChild.children.push({
+            name: partyName,
+            value: seatsCount,
+            color: partyColor,
+            state: partyState,
+          });
         }
         if (methodSun === "ep-eg-p") {
           if (!hasName(europeanPartyName, modifiedSeats.children)) {
@@ -259,6 +271,30 @@ const ParliamentDiagram: FC<{
             color: partyColor,
             state: partyState,
           });
+        }
+      
+        // Sort seats
+        if (methodSun === "eg-ep-p") {
+          modifiedSeats.children = sortChildren(modifiedSeats.children, getEPGroupIndex)
+           .map(child => ({
+             ...child,
+             children: sortChildren((child as DataChildren).children, getEuropeanPartyIndex)
+               .map(child => ({
+                 ...child,
+                 children: sortChildren((child as DataChildren).children, getPartyIndex),
+               })),
+            }));
+        }
+        if (methodSun === "eg-ep-p") {
+          modifiedSeats.children = sortChildren(modifiedSeats.children, getEuropeanPartyIndex)
+           .map(child => ({
+             ...child,
+             children: sortChildren((child as DataChildren).children, getEPGroupIndex)
+               .map(child => ({
+                 ...child,
+                 children: sortChildren((child as DataChildren).children, getPartyIndex),
+               })),
+            }));
         }
       });
       return modifiedSeats;
